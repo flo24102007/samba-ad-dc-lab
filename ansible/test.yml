@@ -1,0 +1,20 @@
+---
+- name: Mon premier playbook
+  hosts: clients_linux
+  become: yes          # = sudo
+
+  tasks:
+    - name: Vérifier que curl est installé
+      apt:
+        name: curl
+        state: present
+
+    - name: Créer un fichier de test
+      file:
+        path: /tmp/ansible_test.txt
+        state: touch
+
+    - name: Écrire dedans
+      copy:
+        content: "Déployé par Ansible depuis le DC !\n"
+        dest: /tmp/ansible_test.txt
